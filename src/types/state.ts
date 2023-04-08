@@ -1,16 +1,19 @@
 export type State = Array<Program>
 
-export interface Program {
+export type Program = {
+  id: string
   name: string
   children: Array<Group>
 }
 
-export interface Group {
+export type Group = {
+  id: string
   name: string
   children: Array<Exercise>
 }
 
-export interface Exercise {
+export type Exercise = {
+  id: string
   name: string
   sets?: number
   reps?: number

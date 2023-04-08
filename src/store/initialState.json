@@ -1,0 +1,125 @@
+[
+  {
+    "id": "e71e6735-3ada-4a30-ba72-9fe0f839335d",
+    "name": "Snowfit intermediate week 4",
+    "children": [
+      {
+        "id": "cedc7e4f-ecdf-4003-a845-a71d7ed674f1",
+        "name": "Warming up",
+        "children": [
+          {
+            "id": "",
+            "name": "Drop Squat",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "",
+            "name": "Walking Lunge",
+            "seconds": 30
+          },
+          {
+            "id": "",
+            "name": "Walking Lateral Squat",
+            "seconds": 30
+          },
+          { "id": "", "name": "Bear Crawl", "seconds": 30 }
+        ]
+      },
+      {
+        "id": "a625e4bd-7e81-40a1-bdf6-4b11fc2bbb84",
+        "name": "Strength",
+        "children": [
+          { "id": "", "name": "? - left", "reps": 12 },
+          { "id": "", "name": "? - right", "reps": 12 },
+          { "id": "", "name": "break", "seconds": 10 },
+          {
+            "id": "",
+            "name": "Plyo split squats - left",
+            "reps": 10
+          },
+          {
+            "id": "",
+            "name": "Plyo split squats - right",
+            "reps": 10
+          },
+          { "id": "", "name": "break", "seconds": 10 },
+          {
+            "id": "",
+            "name": "Single leg lateral hop - left",
+            "reps": 12
+          },
+          {
+            "id": "",
+            "name": "Single leg lateral hop - right",
+            "reps": 12
+          },
+          { "id": "", "name": "break", "seconds": 30 }
+        ]
+      },
+      {
+        "id": "75773906-d8fd-49df-ba69-dc8dd8a7d450",
+        "name": "Stamina",
+        "children": [
+          { "id": "", "name": "Frog squat", "seconds": 50 },
+          { "id": "", "name": "break", "seconds": 15 },
+          {
+            "id": "",
+            "name": "Davies test",
+            "seconds": 20
+          },
+          { "id": "", "name": "break", "seconds": 15 },
+          { "id": "", "name": "Sharkskill single leg" },
+          { "id": "", "name": "break", "seconds": 15 },
+          {
+            "id": "",
+            "name": "Pulse squat",
+            "seconds": 50
+          },
+          { "id": "", "name": "break", "seconds": 30 }
+        ]
+      },
+      {
+        "id": "de25980d-7ab9-48f2-b8e6-e9ecb6af35fb",
+        "name": "Core stability",
+        "children": [
+          {
+            "id": "",
+            "name": "Glute bridge",
+            "seconds": 60
+          },
+          {
+            "id": "",
+            "name": "Slide plank up & down - left",
+            "seconds": 30
+          },
+          {
+            "id": "",
+            "name": "Slide plank up & down - right",
+            "seconds": 30
+          },
+          {
+            "id": "",
+            "name": "Plank single leg - left",
+            "seconds": 30
+          },
+          {
+            "id": "",
+            "name": "Plank single leg - right",
+            "seconds": 30
+          },
+          {
+            "id": "",
+            "name": "Wood chop - left",
+            "seconds": 30
+          },
+          {
+            "id": "",
+            "name": "Wood chop - right",
+            "seconds": 30
+          }
+        ]
+      }
+    ]
+  }
+]
