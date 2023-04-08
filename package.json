@@ -4,8 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "stmux -- [ \"vite\" .. \"vitest\" ]",
-    "test": "vitest run",
+    "dev": "stmux -n -M -- [ -s 1/3 \"vite\" .. [ \"vitest\" : -s 1/3 \"cypress open\" ] ]",
+    "test": "vitest run && cypress run --config video=false --component",
     "build": "eslint . && tsc && vite build",
     "preview": "vite preview"
   },
@@ -20,9 +20,11 @@
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "@vitejs/plugin-react": "^3.1.0",
+    "cypress": "^12.9.0",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",
+    "local-cypress": "^1.2.6",
     "prettier": "^2.8.7",
     "stmux": "^1.8.5",
     "typescript": "^4.9.3",
