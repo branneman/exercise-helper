@@ -4,7 +4,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 
 import App from './components/App'
 import ListPrograms from './pages/ListPrograms'
-// import ViewProgram from './pages/ViewProgram'
+import ViewProgram from './pages/ViewProgram'
 
 ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,10 +14,10 @@ ReactDOM.createRoot(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<ListPrograms />} />
-          {/* <Route
+          <Route
             path="program/:id"
             element={<ViewProgram />}
-          /> */}
+          />
         </Route>
       </Routes>
     </HashRouter>
