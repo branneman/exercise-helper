@@ -5,6 +5,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import App from './components/App'
 import ListPrograms from './pages/ListPrograms'
 import ViewProgram from './pages/ViewProgram'
+import RunProgram from './pages/RunProgram'
 
 ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ ReactDOM.createRoot(
             path="program/:id"
             element={<ViewProgram />}
           />
+          <Route path="run/:id" element={<RunProgram />} />
         </Route>
       </Routes>
     </HashRouter>

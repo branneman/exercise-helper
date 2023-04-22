@@ -16,16 +16,19 @@
           {
             "id": "cf894919-581b-4e5c-8421-aef5857c45c2",
             "name": "Walking Lunge",
+            "reps": 1,
             "seconds": 30
           },
           {
             "id": "2953e6d5-256b-4f7d-a037-f7b4309cf2dd",
             "name": "Walking Lateral Squat",
+            "reps": 1,
             "seconds": 30
           },
           {
             "id": "fddf63a4-13f3-416f-89e0-d7ab57e46db5",
             "name": "Bear Crawl",
+            "reps": 1,
             "seconds": 30
           }
         ]
@@ -37,46 +40,55 @@
           {
             "id": "f36e7755-aaed-4f53-92ff-e4184d470859",
             "name": "? - left",
-            "reps": 12
+            "reps": 12,
+            "seconds": 24
           },
           {
             "id": "4b3c8b63-4005-44d2-a0a2-415fc59d72be",
             "name": "? - right",
-            "reps": 12
+            "reps": 12,
+            "seconds": 24
           },
           {
             "id": "d29b9b8d-6847-471d-a77d-df93a5b0f584",
             "name": "break",
+            "reps": 1,
             "seconds": 10
           },
           {
             "id": "e58554ee-2bbb-408c-829e-d93d02f966e6",
             "name": "Plyo split squats - left",
-            "reps": 10
+            "reps": 10,
+            "seconds": 20
           },
           {
             "id": "47b0847c-9a82-4630-9f27-aa6012175a64",
             "name": "Plyo split squats - right",
-            "reps": 10
+            "reps": 10,
+            "seconds": 20
           },
           {
             "id": "14eb1c78-187d-402c-901e-6d244a52d824",
             "name": "break",
+            "reps": 1,
             "seconds": 10
           },
           {
             "id": "de793551-1efe-4045-8d4f-a3f06188aa58",
             "name": "Single leg lateral hop - left",
-            "reps": 12
+            "reps": 12,
+            "seconds": 24
           },
           {
             "id": "22815b77-b83a-4cef-bbcb-0998c870afe9",
             "name": "Single leg lateral hop - right",
-            "reps": 12
+            "reps": 12,
+            "seconds": 24
           },
           {
             "id": "ab9a2b1d-0da9-4412-810e-a3cf7e8d3821",
             "name": "break",
+            "reps": 1,
             "seconds": 30
           }
         ]
@@ -88,40 +100,49 @@
           {
             "id": "48a28697-9350-4d51-a45d-80c5812782c5",
             "name": "Frog squat",
+            "reps": 1,
             "seconds": 50
           },
           {
             "id": "b3f9179b-57c8-4716-be1b-de43920ab234",
             "name": "break",
+            "reps": 1,
             "seconds": 15
           },
           {
             "id": "9fbc8ce6-cb79-4f2c-a19d-50c2f6bf9f06",
             "name": "Davies test",
+            "reps": 1,
             "seconds": 20
           },
           {
             "id": "ef287dd5-f2dc-4c47-9e95-468a537bf09e",
             "name": "break",
+            "reps": 1,
             "seconds": 15
           },
           {
             "id": "fe430763-f3b6-4a21-9e0a-5ae01030b953",
-            "name": "Sharkskill single leg"
+            "name": "Sharkskill single leg",
+            "reps": 2,
+            "seconds": 10
           },
           {
             "id": "e5d7a941-db17-44cc-bcfe-ad9b448a3720",
             "name": "break",
+            "reps": 1,
             "seconds": 15
           },
           {
             "id": "5d730139-f076-4bdd-aac9-fc593208c390",
             "name": "Pulse squat",
+            "reps": 1,
             "seconds": 50
           },
           {
             "id": "94474c1d-5858-4483-96b0-066d74819512",
             "name": "break",
+            "reps": 1,
             "seconds": 30
           }
         ]
@@ -133,36 +154,43 @@
           {
             "id": "a3ab3302-a3f0-419c-88a4-15181b8450a3",
             "name": "Glute bridge",
+            "reps": 1,
             "seconds": 60
           },
           {
             "id": "29c08ff3-7885-4288-b536-9957676d740d",
             "name": "Slide plank up & down - left",
+            "reps": 1,
             "seconds": 30
           },
           {
             "id": "96575751-c70a-4809-8623-65628b04955b",
             "name": "Slide plank up & down - right",
+            "reps": 1,
             "seconds": 30
           },
           {
             "id": "eecaa31b-10f3-4796-9a3a-f5ea5f3ba744",
             "name": "Plank single leg - left",
+            "reps": 1,
             "seconds": 30
           },
           {
             "id": "8e0fe561-2dd0-43b5-be4d-1547af869856",
             "name": "Plank single leg - right",
+            "reps": 1,
             "seconds": 30
           },
           {
             "id": "5ffdb8db-ead3-45c8-b160-816fcab836c1",
             "name": "Wood chop - left",
+            "reps": 1,
             "seconds": 30
           },
           {
             "id": "60a44298-e172-4681-affd-6d05cf795b5d",
             "name": "Wood chop - right",
+            "reps": 1,
             "seconds": 30
           }
         ]

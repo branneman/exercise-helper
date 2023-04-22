@@ -15,7 +15,6 @@ export type Group = {
 export type Exercise = {
   id: string
   name: string
-  sets?: number
-  reps?: number
-  seconds?: number
+  reps: number
+  seconds: number
 }

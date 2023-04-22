@@ -1,6 +1,6 @@
 import { Exercise } from '../../types/state'
 import programs from '../../store'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export default function ViewProgram() {
   const { id } = useParams()
@@ -10,7 +10,11 @@ export default function ViewProgram() {
 
   return (
     <>
-      <h2>{program.name}</h2>
+      <h2>
+        <Link to={`/run/${program.id}`}>
+          {program.name}
+        </Link>
+      </h2>
       <ol>
         {program.children.map((group) => (
           <li key={group.id}>
