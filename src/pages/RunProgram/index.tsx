@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
-import programs from '../../store'
 import { useParams } from 'react-router-dom'
 import { DateTime } from 'luxon'
+
+import type { Group, Exercise } from '../../types/state'
+import programs from '../../store'
 import useInterval from '../../hooks/useInterval'
 import { createExerciseTimer } from './timers'
 
@@ -15,7 +17,9 @@ export default function RunProgram() {
   const savedTimer: {
     current:
       | ((now: DateTime) => {
-          active: null | string
+          active: boolean
+          group?: Group
+          exercise?: Exercise
           rep?: number
           secondsLeft?: number
         })
@@ -23,7 +27,7 @@ export default function RunProgram() {
   } = useRef()
   useEffect(() => {
     savedTimer.current = createExerciseTimer(
-      program.children[0].children,
+      program,
       DateTime.now()
     )
   }, [program])
@@ -35,19 +39,32 @@ export default function RunProgram() {
   }, 100)
 
   if (!savedTimer.current)
-    return <h2>Loading (no timer?!)</h2>
+    return <h2>Loading (no timer)</h2>
 
   const state = savedTimer.current(now)
-  if (!state) return <h2>Loading (no state?!)</h2>
-
-  const exercise = program.children[0].children.find(
-    (e) => e.id === state.active
+  if (
+    !state ||
+    !state.active ||
+    !state.group ||
+    !state.exercise ||
+    !state.exercise.id
   )
-  if (!exercise) return <h2>Loading (no exercise?!)</h2>
+    return <h2>Loading (no state)</h2>
+
+  const exercise = state.group.children.find(
+    (e) => e.id === state.exercise.id
+  )
+  if (!exercise || !state.secondsLeft)
+    return <h2>Loading (no exercise)</h2>
 
   return (
     <>
-      <h2>{exercise.name}</h2>
+      <h2>
+        {exercise.name}
+        {exercise.reps > 1
+          ? ` × ${state.rep}/${exercise.reps}`
+          : null}
+      </h2>
       <h2>Seconds left: {Math.ceil(state.secondsLeft)}</h2>
     </>
   )

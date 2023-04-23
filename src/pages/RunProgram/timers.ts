@@ -1,67 +1,110 @@
-import type { Exercise } from '../../types/state'
 import { DateTime } from 'luxon'
 
+import type {
+  Program,
+  Group,
+  Exercise,
+} from '../../types/state'
+
 export const createExerciseTimer = (
-  exercises: Exercise[],
+  program: Program,
   start: DateTime
 ) => {
   return (now: DateTime) => {
     // early return: not yet started
-    if (start > now) return { active: null }
+    if (start > now) return { active: false }
 
     // early return: already done
-    const totalSeconds = secondsForAllExercises(exercises)
+    const totalSeconds = secondsForProgram(program)
     if (now > start.plus({ seconds: totalSeconds }))
-      return { active: null }
+      return { active: false }
 
     const runningSeconds = now.diff(start).as('seconds')
 
-    const { exercise, offsetSeconds } = whichExercise(
-      exercises,
-      runningSeconds
+    const { group, offsetSeconds: groupOffsetSeconds } =
+      whichGroup(program, runningSeconds)
+
+    const {
+      exercise,
+      offsetSeconds: exerciseOffsetSeconds,
+    } = whichExercise(
+      group,
+      runningSeconds - groupOffsetSeconds
     )
 
     const { rep, secondsLeft } = whichRep(
       exercise.reps,
       exercise.seconds,
-      runningSeconds - offsetSeconds
+      runningSeconds -
+        groupOffsetSeconds -
+        exerciseOffsetSeconds
     )
 
     return {
-      active: exercise.id,
+      active: true,
+      group,
+      exercise,
       rep,
       secondsLeft,
     }
   }
 }
 
-const secondsForAllExercises = (exercises: Exercise[]) =>
-  exercises.reduce(
+const secondsForProgram = (program: Program) => {
+  return program.children.reduce(
+    (acc, curr) => acc + secondsForGroup(curr),
+    0
+  )
+}
+
+const secondsForGroup = (group: Group) => {
+  return group.children.reduce(
     (acc, curr) => acc + secondsForExercise(curr),
     0
   )
+}
 
 const secondsForExercise = (e: Exercise) =>
   e.reps * e.seconds
 
-const whichExercise = (
-  exercises: Exercise[],
+const whichGroup = (
+  program: Program,
   runningSeconds: number
 ) => {
   let min = 0
   let idx = 0
-  while (idx < exercises.length) {
-    const max = secondsForExercise(exercises[idx])
+  while (idx < program.children.length) {
+    const max = secondsForGroup(program.children[idx])
     if (runningSeconds >= min && runningSeconds < min + max)
       return {
-        exercise: exercises[idx],
+        group: program.children[idx],
         offsetSeconds: min,
       }
     min += max
     idx++
   }
 
-  throw new Error('runningSeconds out of bounds')
+  throw new Error('out of bounds')
+}
+
+const whichExercise = (
+  group: Group,
+  runningSeconds: number
+) => {
+  let min = 0
+  let idx = 0
+  while (idx < group.children.length) {
+    const max = secondsForExercise(group.children[idx])
+    if (runningSeconds >= min && runningSeconds < min + max)
+      return {
+        exercise: group.children[idx],
+        offsetSeconds: min,
+      }
+    min += max
+    idx++
+  }
+
+  throw new Error('out of bounds')
 }
 
 const whichRep = (
@@ -79,7 +122,7 @@ const whichRep = (
       }
   }
 
-  throw new Error('whichRep out of bounds')
+  throw new Error('out of bounds')
 }
 
 if (import.meta.vitest) {
@@ -88,237 +131,339 @@ if (import.meta.vitest) {
   describe('createTimer()', () => {
     describe('single exercise with reps and seconds', () => {
       const id = 'eb39b3d0-702d-4829-b67d-79a3ee7277eb'
+      const program = {
+        id: '1',
+        name: 'My first exercise program',
+        children: [
+          {
+            id: '2',
+            name: 'Warming up',
+            children: [
+              {
+                id,
+                name: 'Drop Squat',
+                reps: 5,
+                seconds: 2,
+              },
+            ],
+          },
+        ],
+      }
 
       it('before: 1sec before', () => {
-        const exercises = [
-          {
-            id,
-            name: 'Drop Squat',
-            reps: 5,
-            seconds: 2,
-          },
-        ]
         const start = DateTime.now()
         const fakeNow = start.minus({ seconds: 1 })
 
-        const getState = createExerciseTimer(
-          exercises,
-          start
-        )
+        const getState = createExerciseTimer(program, start)
         const state = getState(fakeNow)
 
-        expect(state).toEqual({ active: null })
+        expect(state.active).toEqual(false)
       })
 
       it('during: 100ms after, first rep', () => {
-        const exercises = [
-          {
-            id,
-            name: 'Drop Squat',
-            reps: 5,
-            seconds: 2,
-          },
-        ]
         const start = DateTime.now()
         const fakeNow = start.plus(100) // ms
 
-        const getState = createExerciseTimer(
-          exercises,
-          start
-        )
+        const getState = createExerciseTimer(program, start)
         const state = getState(fakeNow)
 
-        expect(state).toEqual({
-          active: id,
-          rep: 1,
-          secondsLeft: 1.9,
-        })
+        expect(state.active).toEqual(true)
+        expect(state.rep).toEqual(1)
+        expect(state.secondsLeft).toEqual(1.9)
       })
 
       it('during: 3s after, second rep', () => {
-        const exercises = [
-          {
-            id,
-            name: 'Drop Squat',
-            reps: 5,
-            seconds: 2,
-          },
-        ]
         const start = DateTime.now()
         const fakeNow = start.plus({ seconds: 3 })
 
-        const getState = createExerciseTimer(
-          exercises,
-          start
-        )
+        const getState = createExerciseTimer(program, start)
         const state = getState(fakeNow)
 
-        expect(state).toEqual({
-          active: id,
-          rep: 2,
-          secondsLeft: 1,
-        })
+        expect(state.active).toEqual(true)
+        expect(state.rep).toEqual(2)
+        expect(state.secondsLeft).toEqual(1)
       })
 
       it('during: 7s after, fourth rep', () => {
-        const exercises = [
-          {
-            id,
-            name: 'Drop Squat',
-            reps: 5,
-            seconds: 2,
-          },
-        ]
         const start = DateTime.now()
         const fakeNow = start.plus({ seconds: 7 })
 
-        const getState = createExerciseTimer(
-          exercises,
-          start
-        )
+        const getState = createExerciseTimer(program, start)
         const state = getState(fakeNow)
 
-        expect(state).toEqual({
-          active: id,
-          rep: 4,
-          secondsLeft: 1,
-        })
+        expect(state.active).toEqual(true)
+        expect(state.exercise?.id).toEqual(id)
+        expect(state.rep).toEqual(4)
+        expect(state.secondsLeft).toEqual(1)
       })
 
       it('done: 11s after', () => {
-        const exercises = [
-          {
-            id,
-            name: 'Drop Squat',
-            reps: 5,
-            seconds: 2,
-          },
-        ]
         const start = DateTime.now()
         const fakeNow = start.plus({ seconds: 11 })
 
-        const getState = createExerciseTimer(
-          exercises,
-          start
-        )
+        const getState = createExerciseTimer(program, start)
         const state = getState(fakeNow)
 
-        expect(state).toEqual({ active: null })
+        expect(state.active).toEqual(false)
       })
     })
 
-    describe('multiple exercises', () => {
-      it('first exercise, first rep', () => {
-        const exercises = [
+    describe('multiple groups, multiple exercises', () => {
+      const program = {
+        id: '1',
+        name: 'My first exercise program',
+        children: [
           {
-            id: 'eb39b3d0-702d-4829-b67d-79a3ee7277eb',
-            name: 'Drop Squat',
-            reps: 20,
-            seconds: 2,
+            id: '2',
+            name: 'Warming up',
+            children: [
+              {
+                id: '3',
+                name: 'Drop Squat',
+                reps: 20,
+                seconds: 2,
+              },
+              {
+                id: '4',
+                name: 'Walking Lunge',
+                reps: 1,
+                seconds: 30,
+              },
+            ],
           },
           {
-            id: 'cf894919-581b-4e5c-8421-aef5857c45c2',
-            name: 'Walking Lunge',
-            reps: 1,
-            seconds: 30,
+            id: '5',
+            name: 'Stamina',
+            children: [
+              {
+                id: '6',
+                name: 'Frog Squat',
+                reps: 1,
+                seconds: 60,
+              },
+              {
+                id: '7',
+                name: 'Pulse Squat',
+                reps: 1,
+                seconds: 60,
+              },
+            ],
           },
-        ]
+        ],
+      }
 
+      it('first group, first exercise, first rep', () => {
         const start = DateTime.now()
         const fakeNow = start.plus({ seconds: 1 })
 
-        const getState = createExerciseTimer(
-          exercises,
-          start
-        )
+        const getState = createExerciseTimer(program, start)
         const state = getState(fakeNow)
 
-        expect(state).toEqual({
-          active: 'eb39b3d0-702d-4829-b67d-79a3ee7277eb',
-          rep: 1,
-          secondsLeft: 1,
-        })
+        expect(state.active).toEqual(true)
+        expect(state.exercise?.id).toEqual('3')
+        expect(state.secondsLeft).toEqual(1)
       })
 
-      it('second exercise, first rep', () => {
-        const exercises = [
-          {
-            id: 'eb39b3d0-702d-4829-b67d-79a3ee7277eb',
-            name: 'Drop Squat',
-            reps: 20,
-            seconds: 2,
-          },
-          {
-            id: 'cf894919-581b-4e5c-8421-aef5857c45c2',
-            name: 'Walking Lunge',
-            reps: 1,
-            seconds: 30,
-          },
-        ]
-
+      it('first group, second exercise, first rep', () => {
         const start = DateTime.now()
         const fakeNow = start.plus({ seconds: 41 })
 
-        const getState = createExerciseTimer(
-          exercises,
-          start
-        )
+        const getState = createExerciseTimer(program, start)
         const state = getState(fakeNow)
 
-        expect(state).toEqual({
-          active: 'cf894919-581b-4e5c-8421-aef5857c45c2',
-          rep: 1,
-          secondsLeft: 29,
-        })
+        expect(state.active).toEqual(true)
+        expect(state.exercise?.id).toEqual('4')
+        expect(state.secondsLeft).toEqual(29)
+      })
+
+      it('second group, first exercise, first rep', () => {
+        const start = DateTime.now()
+        const fakeNow = start.plus({ seconds: 71 })
+
+        const getState = createExerciseTimer(program, start)
+        const state = getState(fakeNow)
+
+        expect(state.active).toEqual(true)
+        expect(state.exercise?.id).toEqual('6')
+        expect(state.secondsLeft).toEqual(59)
       })
     })
   })
 
+  describe('secondsForProgram(), secondsForGroup(), secondsForExercise()', () => {
+    it('1 group, 1 exercise', () => {
+      const program = {
+        id: '1',
+        name: 'My first exercise program',
+        children: [
+          {
+            id: '2',
+            name: 'Warming up',
+            children: [
+              {
+                id: '3',
+                name: 'Drop Squat',
+                reps: 5,
+                seconds: 2,
+              },
+            ],
+          },
+        ],
+      }
+
+      const s = secondsForProgram(program)
+      expect(s).toEqual(10)
+    })
+
+    it('1 group, 2 exercises', () => {
+      const program = {
+        id: '1',
+        name: 'My first exercise program',
+        children: [
+          {
+            id: '2',
+            name: 'Warming up',
+            children: [
+              {
+                id: '3',
+                name: 'Drop Squat',
+                reps: 5,
+                seconds: 2,
+              },
+              {
+                id: '3',
+                name: 'Pulse Squat',
+                reps: 1,
+                seconds: 60,
+              },
+            ],
+          },
+        ],
+      }
+
+      const s = secondsForProgram(program)
+      expect(s).toEqual(70)
+    })
+  })
+
+  describe('whichGroup', () => {
+    const program = {
+      id: '1',
+      name: 'My first exercise program',
+      children: [
+        {
+          id: '2',
+          name: 'Warming up',
+          children: [
+            {
+              id: '3',
+              name: 'Drop Squat',
+              reps: 20,
+              seconds: 2,
+            },
+            {
+              id: '4',
+              name: 'Walking Lunge',
+              reps: 1,
+              seconds: 30,
+            },
+          ],
+        },
+        {
+          id: '5',
+          name: 'Stamina',
+          children: [
+            {
+              id: '6',
+              name: 'Frog Squat',
+              reps: 1,
+              seconds: 60,
+            },
+            {
+              id: '7',
+              name: 'Pulse Squat',
+              reps: 1,
+              seconds: 60,
+            },
+          ],
+        },
+      ],
+    }
+
+    it('0 seconds', () => {
+      const { group } = whichGroup(program, 0)
+      expect(group.id).toEqual('2')
+    })
+
+    it('39 seconds', () => {
+      const { group } = whichGroup(program, 39)
+      expect(group.id).toEqual('2')
+    })
+
+    it('41 seconds', () => {
+      const { group } = whichGroup(program, 41)
+      expect(group.id).toEqual('2')
+    })
+
+    it('71 seconds', () => {
+      const { group } = whichGroup(program, 71)
+      expect(group.id).toEqual('5')
+    })
+
+    it('71 seconds', () => {
+      expect(() => whichGroup(program, 191)).toThrow()
+    })
+  })
+
   describe('whichExercise()', () => {
-    const exercises = [
-      {
-        id: 'fake id 1',
-        name: 'Drop Squat',
-        reps: 5,
-        seconds: 2,
-      },
-      {
-        id: 'fake id 2',
-        name: 'Pulse Squat',
-        reps: 1,
-        seconds: 30,
-      },
-    ]
+    const group = {
+      id: 'fake id 0',
+      name: 'Warming up',
+      children: [
+        {
+          id: 'fake id 1',
+          name: 'Drop Squat',
+          reps: 5,
+          seconds: 2,
+        },
+        {
+          id: 'fake id 2',
+          name: 'Pulse Squat',
+          reps: 1,
+          seconds: 30,
+        },
+      ],
+    }
 
     it('0 seconds', () => {
       const { exercise, offsetSeconds } = whichExercise(
-        exercises,
+        group,
         0
       )
-      expect(exercise).toEqual(exercises[0])
+      expect(exercise).toEqual(group.children[0])
       expect(offsetSeconds).toEqual(0)
     })
 
     it('9 seconds', () => {
       const { exercise, offsetSeconds } = whichExercise(
-        exercises,
+        group,
         9
       )
-      expect(exercise).toEqual(exercises[0])
+      expect(exercise).toEqual(group.children[0])
       expect(offsetSeconds).toEqual(0)
     })
 
     it('11 seconds', () => {
       const { exercise, offsetSeconds } = whichExercise(
-        exercises,
+        group,
         11
       )
-      expect(exercise).toEqual(exercises[1])
+      expect(exercise).toEqual(group.children[1])
       expect(offsetSeconds).toEqual(10)
     })
 
     it('41 seconds', () => {
-      expect(() => whichExercise(exercises, 41)).toThrow()
+      expect(() => whichExercise(group, 41)).toThrow()
     })
   })
 

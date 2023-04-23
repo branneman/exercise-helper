@@ -39,15 +39,15 @@
         "children": [
           {
             "id": "f36e7755-aaed-4f53-92ff-e4184d470859",
-            "name": "? - left",
+            "name": "Squat Single Leg (side) - left",
             "reps": 12,
-            "seconds": 24
+            "seconds": 2
           },
           {
             "id": "4b3c8b63-4005-44d2-a0a2-415fc59d72be",
-            "name": "? - right",
+            "name": "Squat Single Leg (side) - right",
             "reps": 12,
-            "seconds": 24
+            "seconds": 2
           },
           {
             "id": "d29b9b8d-6847-471d-a77d-df93a5b0f584",
@@ -57,15 +57,15 @@
           },
           {
             "id": "e58554ee-2bbb-408c-829e-d93d02f966e6",
-            "name": "Plyo split squats - left",
+            "name": "Plyo Split Squat - left",
             "reps": 10,
-            "seconds": 20
+            "seconds": 2
           },
           {
             "id": "47b0847c-9a82-4630-9f27-aa6012175a64",
-            "name": "Plyo split squats - right",
+            "name": "Plyo Split Squat - right",
             "reps": 10,
-            "seconds": 20
+            "seconds": 2
           },
           {
             "id": "14eb1c78-187d-402c-901e-6d244a52d824",
@@ -75,15 +75,15 @@
           },
           {
             "id": "de793551-1efe-4045-8d4f-a3f06188aa58",
-            "name": "Single leg lateral hop - left",
-            "reps": 12,
-            "seconds": 24
+            "name": "Lateral Hops Single Leg - left",
+            "reps": 1,
+            "seconds": 10
           },
           {
             "id": "22815b77-b83a-4cef-bbcb-0998c870afe9",
-            "name": "Single leg lateral hop - right",
-            "reps": 12,
-            "seconds": 24
+            "name": "Lateral Hops Single Leg - right",
+            "reps": 1,
+            "seconds": 10
           },
           {
             "id": "ab9a2b1d-0da9-4412-810e-a3cf7e8d3821",
@@ -123,8 +123,14 @@
           },
           {
             "id": "fe430763-f3b6-4a21-9e0a-5ae01030b953",
-            "name": "Sharkskill single leg",
-            "reps": 2,
+            "name": "Shark Skill Single Leg - left",
+            "reps": 1,
+            "seconds": 10
+          },
+          {
+            "id": "fe430763-f3b6-4a21-9e0a-5ae01030b953",
+            "name": "Shark Skill Single Leg - right",
+            "reps": 1,
             "seconds": 10
           },
           {
@@ -135,9 +141,9 @@
           },
           {
             "id": "5d730139-f076-4bdd-aac9-fc593208c390",
-            "name": "Pulse squat",
+            "name": "Pulse Squat",
             "reps": 1,
-            "seconds": 50
+            "seconds": 60
           },
           {
             "id": "94474c1d-5858-4483-96b0-066d74819512",
@@ -159,37 +165,37 @@
           },
           {
             "id": "29c08ff3-7885-4288-b536-9957676d740d",
-            "name": "Slide plank up & down - left",
+            "name": "Side Plank Up & Down - left",
             "reps": 1,
             "seconds": 30
           },
           {
             "id": "96575751-c70a-4809-8623-65628b04955b",
-            "name": "Slide plank up & down - right",
+            "name": "Side Plank Up & Down - right",
             "reps": 1,
             "seconds": 30
           },
           {
             "id": "eecaa31b-10f3-4796-9a3a-f5ea5f3ba744",
-            "name": "Plank single leg - left",
+            "name": "Plank Single Leg - left",
             "reps": 1,
             "seconds": 30
           },
           {
             "id": "8e0fe561-2dd0-43b5-be4d-1547af869856",
-            "name": "Plank single leg - right",
+            "name": "Plank Single Leg - right",
             "reps": 1,
             "seconds": 30
           },
           {
             "id": "5ffdb8db-ead3-45c8-b160-816fcab836c1",
-            "name": "Wood chop - left",
+            "name": "Wood Chop - left",
             "reps": 1,
             "seconds": 30
           },
           {
             "id": "60a44298-e172-4681-affd-6d05cf795b5d",
-            "name": "Wood chop - right",
+            "name": "Wood Chop - right",
             "reps": 1,
             "seconds": 30
           }
