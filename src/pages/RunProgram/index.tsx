@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { DateTime } from 'luxon'
+import { Box, Heading } from '@chakra-ui/react'
 
 import type { Group, Exercise } from '../../types/state'
 import programs from '../../store'
@@ -11,7 +12,12 @@ export default function RunProgram() {
   const { id } = useParams()
   const program = programs.find((p) => p.id === id)
 
-  if (!program) return <h2>Program not found</h2>
+  if (!program)
+    return (
+      <Heading size="lg" mt="1em">
+        Program not found
+      </Heading>
+    )
 
   // Create new timer just once
   const savedTimer: {
@@ -28,7 +34,7 @@ export default function RunProgram() {
   useEffect(() => {
     savedTimer.current = createExerciseTimer(
       program,
-      DateTime.now()
+      DateTime.now(),
     )
   }, [program])
 
@@ -39,7 +45,11 @@ export default function RunProgram() {
   }, 100)
 
   if (!savedTimer.current)
-    return <h2>Loading (no timer)</h2>
+    return (
+      <Heading size="lg" mt="1em">
+        Loading (no timer)
+      </Heading>
+    )
 
   const state = savedTimer.current(now)
   if (
@@ -49,23 +59,33 @@ export default function RunProgram() {
     !state.exercise ||
     !state.exercise.id
   )
-    return <h2>Loading (no state)</h2>
+    return (
+      <Heading size="lg" mt="1em">
+        Loading (no state)
+      </Heading>
+    )
 
   const exercise = state.group.children.find(
-    (e) => e.id === state.exercise.id
+    (e) => e.id === state.exercise.id,
   )
   if (!exercise || !state.secondsLeft)
-    return <h2>Loading (no exercise)</h2>
+    return (
+      <Heading size="lg" mt="1em">
+        Loading (no exercise)
+      </Heading>
+    )
 
   return (
-    <>
-      <h2>
+    <Box m="1em 0 0 0">
+      <Heading size="lg" mb="1em">
         {exercise.name}
         {exercise.reps > 1
           ? ` × ${state.rep}/${exercise.reps}`
           : null}
-      </h2>
-      <h2>Seconds left: {Math.ceil(state.secondsLeft)}</h2>
-    </>
+      </Heading>
+      <Heading size="lg">
+        Seconds left: {Math.ceil(state.secondsLeft)}
+      </Heading>
+    </Box>
   )
 }

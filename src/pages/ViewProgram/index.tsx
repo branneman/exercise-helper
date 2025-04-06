@@ -1,35 +1,42 @@
+import { Link, useParams } from 'react-router-dom'
+import { Box, Heading, List } from '@chakra-ui/react'
+
 import { Exercise } from '../../types/state'
 import programs from '../../store'
-import { Link, useParams } from 'react-router-dom'
 
 export default function ViewProgram() {
   const { id } = useParams()
   const program = programs.find((p) => p.id === id)
 
-  if (!program) return <h2>Program not found</h2>
+  if (!program)
+    return (
+      <Heading size="lg" mt="1em">
+        Program not found
+      </Heading>
+    )
 
   return (
-    <>
-      <h2>
+    <Box m="1em 0 0 0">
+      <Heading size="lg" mb="1em">
         <Link to={`/run/${program.id}`}>
           {program.name}
         </Link>
-      </h2>
-      <ol>
+      </Heading>
+      <List.Root>
         {program.children.map((group) => (
-          <li key={group.id}>
-            <h3>{group.name}</h3>
-            <ol>
+          <List.Item key={group.id} mb="1em">
+            <Heading size="md">{group.name}</Heading>
+            <List.Root>
               {group.children.map((exercise) => (
-                <li key={exercise.id}>
+                <List.Item key={exercise.id}>
                   <ExerciseInfo exercise={exercise} />
-                </li>
+                </List.Item>
               ))}
-            </ol>
-          </li>
+            </List.Root>
+          </List.Item>
         ))}
-      </ol>
-    </>
+      </List.Root>
+    </Box>
   )
 }
 

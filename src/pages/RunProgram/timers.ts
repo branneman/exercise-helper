@@ -8,7 +8,7 @@ import type {
 
 export const createExerciseTimer = (
   program: Program,
-  start: DateTime
+  start: DateTime,
 ) => {
   return (now: DateTime) => {
     // early return: not yet started
@@ -29,7 +29,7 @@ export const createExerciseTimer = (
       offsetSeconds: exerciseOffsetSeconds,
     } = whichExercise(
       group,
-      runningSeconds - groupOffsetSeconds
+      runningSeconds - groupOffsetSeconds,
     )
 
     const { rep, secondsLeft } = whichRep(
@@ -37,7 +37,7 @@ export const createExerciseTimer = (
       exercise.seconds,
       runningSeconds -
         groupOffsetSeconds -
-        exerciseOffsetSeconds
+        exerciseOffsetSeconds,
     )
 
     return {
@@ -53,14 +53,14 @@ export const createExerciseTimer = (
 const secondsForProgram = (program: Program) => {
   return program.children.reduce(
     (acc, curr) => acc + secondsForGroup(curr),
-    0
+    0,
   )
 }
 
 const secondsForGroup = (group: Group) => {
   return group.children.reduce(
     (acc, curr) => acc + secondsForExercise(curr),
-    0
+    0,
   )
 }
 
@@ -69,7 +69,7 @@ const secondsForExercise = (e: Exercise) =>
 
 const whichGroup = (
   program: Program,
-  runningSeconds: number
+  runningSeconds: number,
 ) => {
   let min = 0
   let idx = 0
@@ -89,7 +89,7 @@ const whichGroup = (
 
 const whichExercise = (
   group: Group,
-  runningSeconds: number
+  runningSeconds: number,
 ) => {
   let min = 0
   let idx = 0
@@ -110,7 +110,7 @@ const whichExercise = (
 const whichRep = (
   reps: number,
   secondsPerRep: number,
-  runningSeconds: number
+  runningSeconds: number,
 ) => {
   for (let rep = 0; rep < reps; rep++) {
     const min = rep * secondsPerRep
@@ -128,7 +128,7 @@ const whichRep = (
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest
 
-  describe('createTimer()', () => {
+  describe('createExerciseTimer()', () => {
     describe('single exercise with reps and seconds', () => {
       const id = 'eb39b3d0-702d-4829-b67d-79a3ee7277eb'
       const program = {
@@ -438,7 +438,7 @@ if (import.meta.vitest) {
     it('0 seconds', () => {
       const { exercise, offsetSeconds } = whichExercise(
         group,
-        0
+        0,
       )
       expect(exercise).toEqual(group.children[0])
       expect(offsetSeconds).toEqual(0)
@@ -447,7 +447,7 @@ if (import.meta.vitest) {
     it('9 seconds', () => {
       const { exercise, offsetSeconds } = whichExercise(
         group,
-        9
+        9,
       )
       expect(exercise).toEqual(group.children[0])
       expect(offsetSeconds).toEqual(0)
@@ -456,7 +456,7 @@ if (import.meta.vitest) {
     it('11 seconds', () => {
       const { exercise, offsetSeconds } = whichExercise(
         group,
-        11
+        11,
       )
       expect(exercise).toEqual(group.children[1])
       expect(offsetSeconds).toEqual(10)
@@ -476,7 +476,7 @@ if (import.meta.vitest) {
       const { rep, secondsLeft } = whichRep(
         reps,
         secondsPerRep,
-        runningSeconds
+        runningSeconds,
       )
 
       expect(rep).toEqual(1)
@@ -491,7 +491,7 @@ if (import.meta.vitest) {
       const { rep, secondsLeft } = whichRep(
         reps,
         secondsPerRep,
-        runningSeconds
+        runningSeconds,
       )
 
       expect(rep).toEqual(2)
@@ -506,7 +506,7 @@ if (import.meta.vitest) {
       const { rep, secondsLeft } = whichRep(
         reps,
         secondsPerRep,
-        runningSeconds
+        runningSeconds,
       )
 
       expect(rep).toEqual(1)
@@ -521,7 +521,7 @@ if (import.meta.vitest) {
       const { rep, secondsLeft } = whichRep(
         reps,
         secondsPerRep,
-        runningSeconds
+        runningSeconds,
       )
 
       expect(rep).toEqual(5)
@@ -536,7 +536,7 @@ if (import.meta.vitest) {
       const { rep, secondsLeft } = whichRep(
         reps,
         secondsPerRep,
-        runningSeconds
+        runningSeconds,
       )
 
       expect(rep).toEqual(1)
@@ -549,7 +549,7 @@ if (import.meta.vitest) {
       const runningSeconds = 11
 
       expect(() =>
-        whichRep(reps, secondsPerRep, runningSeconds)
+        whichRep(reps, secondsPerRep, runningSeconds),
       ).toThrow()
     })
   })

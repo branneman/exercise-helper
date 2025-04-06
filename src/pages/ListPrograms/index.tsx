@@ -1,19 +1,23 @@
-import programs from '../../store'
 import { Link } from 'react-router-dom'
+import { Box, Heading, List } from '@chakra-ui/react'
+
+import programs from '../../store'
 
 export default function ListPrograms() {
   return (
-    <>
-      <h2>Exercise Programs</h2>
-      <ol>
+    <Box m="1em 0 0 0">
+      <Heading size="lg" mb="1em">
+        Exercise Programs
+      </Heading>
+      <List.Root>
         {programs.map((program) => (
-          <li key={program.id}>
+          <List.Item key={program.id}>
             <Link to={`/program/${program.id}`}>
               {program.name}
             </Link>
-          </li>
+          </List.Item>
         ))}
-      </ol>
-    </>
+      </List.Root>
+    </Box>
   )
 }
