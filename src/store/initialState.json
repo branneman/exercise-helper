@@ -128,7 +128,7 @@
             "seconds": 10
           },
           {
-            "id": "fe430763-f3b6-4a21-9e0a-5ae01030b953",
+            "id": "c501a1ae-6a4b-42b7-94ff-629d39f40b7e",
             "name": "Shark Skill Single Leg - right",
             "reps": 1,
             "seconds": 10
@@ -198,6 +198,156 @@
             "name": "Wood Chop - right",
             "reps": 1,
             "seconds": 30
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9b598198-8dd6-4aaf-baa4-8bd2df4ec447",
+    "name": "Climbing strength: fingers, forearm, pull-up",
+    "children": [
+      {
+        "id": "0651744c-0821-4f06-a94d-da93808d6a1e",
+        "name": "Warming up",
+        "children": [
+          {
+            "id": "47b5a820-f52d-4808-ad58-ce37807afa89",
+            "name": "Jumping Jack",
+            "reps": 1,
+            "seconds": 60
+          }
+        ]
+      },
+      {
+        "id": "63f90650-1aa8-42c8-a9c4-801b194516b0",
+        "name": "Pull, Squat, Push, Hinge (set 1)",
+        "children": [
+          {
+            "id": "7c2c46df-c9ab-45f8-8655-8b02c6087da0",
+            "name": "Horizontal Pull-up",
+            "reps": 15,
+            "seconds": 2
+          },
+          {
+            "id": "3ecc81a2-e7fa-4dce-b41d-570186a0247c",
+            "name": "Full Squat",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "75c587e3-4c65-4820-aead-da5b36fcfec4",
+            "name": "Advanced Incline Push-up",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "29830a96-5e07-4b01-982a-c664f1fca6fe",
+            "name": "Alternating Leg Raises",
+            "reps": 25,
+            "seconds": 2
+          }
+        ]
+      },
+      {
+        "id": "26752177-d91e-46c8-8373-60855da8aa22",
+        "name": "Pull, Squat, Push, Hinge (set 2)",
+        "children": [
+          {
+            "id": "228cb88a-1efd-404e-a295-ed9278f013d7",
+            "name": "Horizontal Pull-up",
+            "reps": 15,
+            "seconds": 2
+          },
+          {
+            "id": "3e033e92-dede-4bfe-b734-032f594f5e0c",
+            "name": "Full Squat",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "29644d38-7f09-48b4-81fa-99eb9452d50c",
+            "name": "Advanced Incline Push-up",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "17c34bb3-9892-4708-a0cc-ac2cb59501cd",
+            "name": "Alternating Leg Raises",
+            "reps": 25,
+            "seconds": 2
+          }
+        ]
+      },
+      {
+        "id": "a25f3938-b6d4-4d30-8579-77ce0ec5bd11",
+        "name": "Pull, Squat, Push, Hinge (set 3)",
+        "children": [
+          {
+            "id": "e3e4f5c7-d779-4bab-b2e4-8c4d3b1703f0",
+            "name": "Horizontal Pull-up",
+            "reps": 15,
+            "seconds": 2
+          },
+          {
+            "id": "f26e1b3f-0d37-47f8-afaf-d32cc768105b",
+            "name": "Full Squat",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "91f03ce3-1b2d-4af7-8dc5-a95b5a01a882",
+            "name": "Advanced Incline Push-up",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "f9e6612f-0648-48c4-a69d-a1c1236dd709",
+            "name": "Alternating Leg Raises",
+            "reps": 25,
+            "seconds": 2
+          }
+        ]
+      },
+      {
+        "id": "3b4d4fc8-fff4-4d05-8678-e3971e44fe87",
+        "name": "Pull, Squat, Push, Hinge (set 4)",
+        "children": [
+          {
+            "id": "6ad9aa69-4ccb-4ceb-9ec6-ef7e71dcbe35",
+            "name": "Horizontal Pull-up",
+            "reps": 15,
+            "seconds": 2
+          },
+          {
+            "id": "f9f89a02-437f-4786-95cb-f774224a05b9",
+            "name": "Full Squat",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "1c4052bd-dd1e-4207-8a35-06a7a9304b77",
+            "name": "Advanced Incline Push-up",
+            "reps": 20,
+            "seconds": 2
+          },
+          {
+            "id": "6664d4d5-8411-4aa7-911a-49000b8fb4df",
+            "name": "Alternating Leg Raises",
+            "reps": 25,
+            "seconds": 2
+          }
+        ]
+      },
+      {
+        "id": "5e6aa6c3-6bde-4a03-87f0-86645b2153e8",
+        "name": "Cooling down",
+        "children": [
+          {
+            "id": "f5e73006-436d-49b0-9294-7b4c13b974ea",
+            "name": "Walk around, don't sit",
+            "reps": 1,
+            "seconds": 120
           }
         ]
       }
