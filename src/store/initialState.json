@@ -204,13 +204,24 @@
     ]
   },
   {
+    "id": "78d0762d-98c5-4fff-9677-4ef93def5ad4",
+    "name": "Climbing strength: fingers, forearm",
+    "children": []
+  },
+  {
     "id": "9b598198-8dd6-4aaf-baa4-8bd2df4ec447",
-    "name": "Climbing strength: fingers, forearm, pull-up",
+    "name": "Calisthenics: general strength",
     "children": [
       {
         "id": "0651744c-0821-4f06-a94d-da93808d6a1e",
         "name": "Warming up",
         "children": [
+          {
+            "id": "ba5885b4-226b-41d2-bfd6-7085fe15ef42",
+            "name": "Get ready",
+            "reps": 1,
+            "seconds": 10
+          },
           {
             "id": "47b5a820-f52d-4808-ad58-ce37807afa89",
             "name": "Jumping Jack",

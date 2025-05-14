@@ -19,5 +19,8 @@
     "paths": { "@/*": ["./src/*"] }
   },
   "include": ["src", "cypress.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "ts-node": {
+    "esm": true,
+  }
 }
